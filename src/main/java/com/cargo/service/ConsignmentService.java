@@ -14,7 +14,8 @@ import org.springframework.stereotype.Service;
 import com.cargo.config.ApplicationConfig;
 import com.cargo.datasource.ConsignmentRepository;
 import com.cargo.model.Consignment;
-import com.cargo.model.ConsignmentInfoResponse;
+import com.cargo.service.responce.ConsignmentInfoResponse;
+
 
 @Service
 public class ConsignmentService {

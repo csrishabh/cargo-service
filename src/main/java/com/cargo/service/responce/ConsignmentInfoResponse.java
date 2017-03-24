@@ -1,4 +1,4 @@
-package com.cargo.model;
+package com.cargo.service.responce;
 
 import java.util.Date;
 

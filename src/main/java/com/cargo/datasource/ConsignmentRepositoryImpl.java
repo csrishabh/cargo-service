@@ -20,8 +20,9 @@ import org.springframework.http.ResponseEntity;
 
 import com.cargo.config.ApplicationConfig;
 import com.cargo.model.Consignment;
-import com.cargo.model.ConsignmentInfoResponse;
+
 import com.cargo.model.Consignment_;
+import com.cargo.service.responce.ConsignmentInfoResponse;
 
 public class ConsignmentRepositoryImpl implements ConsignmentRepositoryCustom {
 

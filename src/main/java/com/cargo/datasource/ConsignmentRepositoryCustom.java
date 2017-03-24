@@ -6,7 +6,8 @@ import java.util.Map;
 import org.springframework.http.ResponseEntity;
 
 import com.cargo.model.Consignment;
-import com.cargo.model.ConsignmentInfoResponse;
+import com.cargo.service.responce.ConsignmentInfoResponse;
+
 
 public interface ConsignmentRepositoryCustom {
 	

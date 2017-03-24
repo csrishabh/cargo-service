@@ -98,14 +98,23 @@ public class Consignment implements Serializable {
 	
 	@ManyToOne
 	@JoinColumn(name = "DISPATCHER_ID")
-	@JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id")
+	@JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id" , scope= Dispatcher.class)
 	@JsonIdentityReference(alwaysAsId=true)
 	private Dispatcher dispatcher;
 	
 	@OneToMany(mappedBy="consignment" , cascade = CascadeType.ALL)
 	@JsonBackReference
 	private List<PaymentInfo> paymentInfos = new ArrayList<PaymentInfo>();
-
+	
+	@Column(name="PAIDBY")
+	private String paidBy;
+	
+	public String getPaidBy() {
+		return paidBy;
+	}
+	public void setPaidBy(String paidBy) {
+		this.paidBy = paidBy;
+	}
 	public double getCarrige_charge() {
 		return carrige_charge;
 	}

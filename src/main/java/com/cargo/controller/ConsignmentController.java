@@ -19,9 +19,10 @@ import com.cargo.config.ConsignmentRestURIConstants;
 import com.cargo.datasource.ConsignmentRepository;
 import com.cargo.datasource.PersonDAO;
 import com.cargo.model.Consignment;
-import com.cargo.model.ConsignmentInfoResponse;
+
 import com.cargo.model.Person;
 import com.cargo.service.ConsignmentService;
+import com.cargo.service.responce.ConsignmentInfoResponse;
 
 @RestController
 public class ConsignmentController {
