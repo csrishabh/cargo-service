@@ -1,7 +1,5 @@
 package com.cargo.service;
 
-import static org.hamcrest.CoreMatchers.nullValue;
-
 import java.util.Date;
 import java.util.List;
 
@@ -10,8 +8,10 @@ import org.springframework.stereotype.Service;
 
 import com.cargo.datasource.ConsignmentRepository;
 import com.cargo.datasource.PaymetDAO;
+import com.cargo.datasource.PersonRepository;
 import com.cargo.model.Consignment;
 import com.cargo.model.PaymentInfo;
+import com.cargo.model.Person;
 
 @Service
 public class PaymentService {
@@ -21,12 +21,15 @@ public class PaymentService {
 
 	@Autowired
 	private ConsignmentRepository consignmentDAO;
+	
+	@Autowired
+	private PersonRepository personDAO;
 
-	public List<PaymentInfo> getConsignmentPayments(Long id) {
+	public List<PaymentInfo> getPersonPayments(Long id) {
 
-		Consignment consignment = consignmentDAO.findOne(id);
-		if (consignment == null) {
-			throw (new RuntimeException("Consignment not available"));
+		Person person = personDAO.findOne(id);
+		if (person == null) {
+			throw (new RuntimeException("Person not available"));
 		}
 
 		/*
@@ -34,22 +37,22 @@ public class PaymentService {
 		 * RuntimeException("PAYMENT NOT REQURIED")); }
 		 */
 
-		return paymetDAO.findbyConsignment_Id(id);
+		return paymetDAO.findbyPerson_Id(id);
 
 	}
 
-	public void addPaymentToConsignment(Long cId, PaymentInfo info) {
+	public void addPaymentToPerson(Long pId, PaymentInfo info) {
 
-		Consignment consignment = consignmentDAO.findOne(cId);
-		if (consignment == null) {
-			throw new RuntimeException("Consignment not found");
+		Person person = personDAO.findOne(pId);
+		if (person == null) {
+			throw new RuntimeException("person not found");
 		}
 		
 		if(info.getDate()==null){
 			info.setDate(new Date());
 		}
 		
-		info.setConsignment(consignment);
+		info.setPerson(person);
 	    paymetDAO.save(info);
 	}
 

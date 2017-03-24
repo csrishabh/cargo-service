@@ -39,10 +39,10 @@ public class PaymentInfo {
 	private Date date; 
 	
 	@ManyToOne
-	@JoinColumn(name = "CONSIGNMENT_ID")
-	@JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id")
+	@JoinColumn(name = "PERSON_ID")
+	@JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id" , scope= Person.class)
 	@JsonIdentityReference(alwaysAsId=true)
-	Consignment consignment;
+	Person person;
 
 	public Long getId() {
 		return id;
@@ -76,12 +76,12 @@ public class PaymentInfo {
 		this.chequeNum = chequeNum;
 	}
 
-	public Consignment getConsignment() {
-		return consignment;
+	public Person getPerson() {
+		return person;
 	}
 
-	public void setConsignment(Consignment consignment) {
-		this.consignment = consignment;
+	public void setPerson(Person person) {
+		this.person = person;
 	}
 
 	public Date getDate() {

@@ -12,5 +12,4 @@ import com.cargo.service.responce.ConsignmentInfoResponse;
 public interface ConsignmentRepositoryCustom {
 	
 	public ResponseEntity<List<ConsignmentInfoResponse>> getConsigments(Map<String, String> params);
-
 }

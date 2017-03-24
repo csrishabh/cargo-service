@@ -13,7 +13,7 @@ import com.cargo.model.PaymentInfo;
 @Transactional
 public interface PaymetDAO extends CrudRepository<PaymentInfo, Long> {
 	
-	@Query("select p from PaymentInfo p where p.consignment.id=:id")
-	public List<PaymentInfo> findbyConsignment_Id(@Param("id") Long id); 
+	@Query("select p from PaymentInfo p where p.person.id=:id")
+	public List<PaymentInfo> findbyPerson_Id(@Param("id") Long id); 
 
 }

@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -52,6 +53,18 @@ public class Person implements Serializable {
 	@ManyToMany(fetch = FetchType.LAZY , mappedBy = "persons")
 	@JsonBackReference
 	private List<Consignment> consignments = new ArrayList<>();
+
+	@OneToMany(mappedBy="person" , cascade = CascadeType.ALL)
+	@JsonBackReference
+	private List<PaymentInfo> paymentInfos = new ArrayList<PaymentInfo>();
+	
+	public List<PaymentInfo> getPaymentInfos() {
+		return paymentInfos;
+	}
+
+	public void setPaymentInfos(List<PaymentInfo> paymentInfos) {
+		this.paymentInfos = paymentInfos;
+	}
 
 	public Long getId() {
 		return id;

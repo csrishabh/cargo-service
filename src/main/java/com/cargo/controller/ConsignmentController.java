@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cargo.config.ConsignmentRestURIConstants;
 import com.cargo.datasource.ConsignmentRepository;
-import com.cargo.datasource.PersonDAO;
+import com.cargo.datasource.PersonRepository;
 import com.cargo.model.Consignment;
 
 import com.cargo.model.Person;
@@ -36,7 +36,7 @@ public class ConsignmentController {
 	private ConsignmentService consignmentService;
 	
 	@Autowired
-	private PersonDAO personDAO;
+	private PersonRepository personDAO;
 
 	@RequestMapping(value = ConsignmentRestURIConstants.CREATE_CONSIGNMENT, method = RequestMethod.POST)
 	public @ResponseBody Consignment createConsignment(@RequestBody Consignment consignment) {

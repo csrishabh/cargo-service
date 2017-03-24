@@ -12,7 +12,7 @@ import com.cargo.model.Person;
 
 @Component
 @Transactional
-public interface PersonDAO extends CrudRepository<Person, Long>  {
+public interface PersonRepository extends CrudRepository<Person, Long> , PersonRepositoryCustom  {
 	
 	
 	public List<Person> findByType(String type); 

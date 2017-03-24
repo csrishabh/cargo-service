@@ -26,16 +26,16 @@ public class PaymentController {
 	private PaymentService paymentService;
 
 	@RequestMapping(value = PaymentURIConstants.GET_CONSIGNMETS_PAYMENTS, method = RequestMethod.GET)
-	@ResponseBody public  List<PaymentInfo> getConsigmentPayments(@PathVariable("id") Long id) {
+	@ResponseBody public  List<PaymentInfo> getPersonPayments(@PathVariable("id") Long id) {
 		
-		return paymentService.getConsignmentPayments(id);
+		return paymentService.getPersonPayments(id);
 
 	}
 	
 	@RequestMapping(value = PaymentURIConstants.ADD_PAYMENT, method = RequestMethod.POST)
-	@ResponseBody public void addPayment(@PathVariable("id") Long id , @RequestBody PaymentInfo info) {
+	@ResponseBody public void addPayment(@PathVariable("id") Long personId , @RequestBody PaymentInfo info) {
 		
-		    paymentService.addPaymentToConsignment(id, info);
+		    paymentService.addPaymentToPerson(personId, info);
 
 	}
 	

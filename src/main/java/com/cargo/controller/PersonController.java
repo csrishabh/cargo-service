@@ -11,14 +11,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cargo.config.PersonRestURIConstants;
-import com.cargo.datasource.PersonDAO;
+import com.cargo.datasource.PersonRepository;
 import com.cargo.model.Person;
 
 @RestController
 public class PersonController {
 
 	@Autowired
-	private PersonDAO personDAO;
+	private PersonRepository personDAO;
 	
 	
 	@RequestMapping(value = PersonRestURIConstants.ADD_PERSON, method = RequestMethod.POST)

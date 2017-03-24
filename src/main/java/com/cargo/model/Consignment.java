@@ -102,10 +102,6 @@ public class Consignment implements Serializable {
 	@JsonIdentityReference(alwaysAsId=true)
 	private Dispatcher dispatcher;
 	
-	@OneToMany(mappedBy="consignment" , cascade = CascadeType.ALL)
-	@JsonBackReference
-	private List<PaymentInfo> paymentInfos = new ArrayList<PaymentInfo>();
-	
 	@Column(name="PAIDBY")
 	private String paidBy;
 	
@@ -226,11 +222,5 @@ public class Consignment implements Serializable {
 	public void setDeleted(boolean isDeleted) {
 		this.isDeleted = isDeleted;
 	}
-	public List<PaymentInfo> getPaymentInfos() {
-		return paymentInfos;
-	}
-	public void setPaymentInfos(List<PaymentInfo> paymentInfos) {
-		this.paymentInfos = paymentInfos;
-	}
-
+	
 }
