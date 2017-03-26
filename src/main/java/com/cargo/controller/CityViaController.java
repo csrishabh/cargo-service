@@ -2,9 +2,12 @@ package com.cargo.controller;
 
 import java.util.List;
 
+import javax.websocket.server.PathParam;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -31,14 +34,14 @@ public class CityViaController {
 	private ViaDAO viaDao;
 	
 	@RequestMapping(value = CityViaRestURIConstants.GET_ALL_CITY ,method = RequestMethod.GET)
-	public List<City> getAllCity(){
+	public List<City> getAllCity(@PathVariable("name") String name ){
 		logger.info("Get all city");
-		return Utils.toList(cityDAO.findAll());
+		return cityDAO.getCityByName("%"+name+"%");
 	}
 	@RequestMapping(value = CityViaRestURIConstants.GET_ALL_VIA ,method = RequestMethod.GET)
-	public List<Via> getAllVia(){
+	public List<Via> getAllVia(@PathVariable("name") String name){
 		logger.info("Get all via");
-		return Utils.toList(viaDao.findAll());
+		return viaDao.getViaByName("%"+name+"%");
 		
 	}
 	

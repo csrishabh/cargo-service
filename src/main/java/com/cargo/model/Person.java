@@ -19,6 +19,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name="PERSON")
@@ -51,11 +52,11 @@ public class Person implements Serializable {
 	private String type;
 	
 	@ManyToMany(fetch = FetchType.LAZY , mappedBy = "persons")
-	@JsonBackReference
+	
 	private List<Consignment> consignments = new ArrayList<>();
 
 	@OneToMany(mappedBy="person" , cascade = CascadeType.ALL)
-	@JsonBackReference
+	@JsonBackReference()
 	private List<PaymentInfo> paymentInfos = new ArrayList<PaymentInfo>();
 	
 	public List<PaymentInfo> getPaymentInfos() {

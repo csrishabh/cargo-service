@@ -26,6 +26,7 @@ import org.hibernate.annotations.Type;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
@@ -50,6 +51,7 @@ public class Consignment implements Serializable {
 			@JoinColumn(name = "CONSIGNMENT_ID", nullable = false) },
 			inverseJoinColumns = { @JoinColumn(name = "PERSON_ID",
 					nullable = false) })
+	@JsonBackReference
 	private List<Person> persons;
 	
 	@Column(name="WEIGHT")

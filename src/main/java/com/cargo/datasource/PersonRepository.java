@@ -16,5 +16,8 @@ public interface PersonRepository extends CrudRepository<Person, Long> , PersonR
 	
 	
 	public List<Person> findByType(String type); 
+	
+	@Query("select p from Person p where p.type=:type and p.name like lower(:name)")
+	public List<Person> findByTypeAndName(@Param("type")String type , @Param("name")String Name);
 
 }

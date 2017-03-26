@@ -12,8 +12,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Type;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
@@ -36,11 +40,12 @@ public class PaymentInfo {
 	String chequeNum;
 	
 	@Column
+	@Type(type="date")
 	private Date date; 
 	
 	@ManyToOne
 	@JoinColumn(name = "PERSON_ID")
-	@JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id" , scope= Person.class)
+	@JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id")
 	@JsonIdentityReference(alwaysAsId=true)
 	Person person;
 

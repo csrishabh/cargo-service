@@ -1,6 +1,6 @@
 package com.cargo.model;
 
- enum PaymentType {
+ public enum PaymentType {
 	
 	 CASH,
 	 CHEQUE,

@@ -1,13 +1,16 @@
 package com.cargo.controller;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -25,21 +28,25 @@ public class PaymentController {
 	@Autowired
 	private PaymentService paymentService;
 
-	@RequestMapping(value = PaymentURIConstants.GET_CONSIGNMETS_PAYMENTS, method = RequestMethod.GET)
-	@ResponseBody public  List<PaymentInfo> getPersonPayments(@PathVariable("id") Long id) {
-		
-		return paymentService.getPersonPayments(id);
+	@RequestMapping(value = PaymentURIConstants.GET_PERSON_PAYMENTS, method = RequestMethod.GET)
+	@ResponseBody
+	public ResponseEntity<List<PaymentInfo>> getPersonPayments(@RequestParam Map<String, String> param) {
+
+		return paymentService.getPersonPayments(param);
 
 	}
-	
+
 	@RequestMapping(value = PaymentURIConstants.ADD_PAYMENT, method = RequestMethod.POST)
-	@ResponseBody public void addPayment(@PathVariable("id") Long personId , @RequestBody PaymentInfo info) {
-		
-		    paymentService.addPaymentToPerson(personId, info);
+	@ResponseBody
+	public ResponseEntity<PaymentInfo> addPayment(@PathVariable("id") Long personId, @RequestBody PaymentInfo info) {
+
+		try {
+			PaymentInfo paymentInfo = paymentService.addPaymentToPerson(personId, info);
+			return new ResponseEntity<PaymentInfo>(paymentInfo, HttpStatus.CREATED);
+		} catch (Exception exceptions) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
 
 	}
-	
-	
-	
 
 }
