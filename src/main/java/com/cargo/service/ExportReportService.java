@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.cargo.model.PaymentInfo;
 import com.cargo.model.Person;
+import com.cargo.service.responce.ConsignmentInfoResponse;
 
 @Service
 public class ExportReportService {
@@ -18,6 +19,9 @@ public class ExportReportService {
 
 	@Autowired
 	private PaymentService paymentService;
+	
+	@Autowired
+	private ConsignmentService consignmentService;
 
 	public Map<String, Object> exportPaymentReport(Map<String, String> param) {
 		
@@ -30,6 +34,16 @@ public class ExportReportService {
 		fileData.put("totaldue", totalDue);
 		fileData.put("payments", payments);
 		
+		return fileData;
+
+	}
+	
+public Map<String, Object> exportCollectionReport(Map<String, String> param) {
+		
+		List<ConsignmentInfoResponse> consignments = consignmentService.getConsignmentsByDate(param).getBody();
+		
+		Map<String, Object> fileData = new HashMap<>();
+		fileData.put("consignments", consignments);
 		return fileData;
 
 	}
