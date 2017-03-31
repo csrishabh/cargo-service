@@ -31,6 +31,11 @@ public class PersonService {
 	}
 	
 	
+	public Person savePerson(Person person){
+		return personRepository.save(person);
+	}
+	
+	
 	public ResponseEntity<Double> getTotalDue(Map<String, String> param){
 	
 		try {
@@ -40,6 +45,16 @@ public class PersonService {
 			return new ResponseEntity<Double>(totalDue, HttpStatus.OK);
 		} catch (ParseException e) {
 			return new ResponseEntity<Double>(HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	public ResponseEntity<List<ConsignmentInfoResponse>> getConsignmentByPersonId(Map<String, String> param){
+		
+		try {
+			List<ConsignmentInfoResponse> response = consignmentService.getConsignmentByPersonId(param).getBody();
+			return new ResponseEntity<List<ConsignmentInfoResponse>>(response, HttpStatus.OK);
+		} catch (ParseException e) {
+			return new ResponseEntity<List<ConsignmentInfoResponse>>(HttpStatus.BAD_REQUEST);
 		}
 	}
 	

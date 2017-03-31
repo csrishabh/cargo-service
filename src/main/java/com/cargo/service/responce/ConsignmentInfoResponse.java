@@ -40,10 +40,21 @@ public class ConsignmentInfoResponse {
 	
 	private Long dispatcherId;
 	
+	private String driverName;
+	
 	private String consignor;
 	
 	private String consingee;
- 
+	
+	
+	public String getDriverName() {
+		return driverName;
+	}
+
+	public void setDriverName(String driverName) {
+		this.driverName = driverName;
+	}
+
 	public String getConsignor() {
 		return consignor;
 	}

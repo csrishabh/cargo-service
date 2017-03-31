@@ -6,7 +6,7 @@
 	<groupId>com.cargo</groupId>
 	<artifactId>cargo</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 
 	<name>cargo-services</name>
 	<description>cargo back end service</description>
@@ -75,16 +75,15 @@
 		<dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi</artifactId>
-			<version>3.15</version>
+			<version>3.8</version>
 		</dependency>
 		
-		<dependency>
+			<dependency>
         <groupId>org.apache.poi</groupId>
         <artifactId>poi-ooxml</artifactId>
-        <version>3.15</version>
+        <version>3.8</version>
     </dependency>
-    
-
+		
 	</dependencies>
 
 	<build>
@@ -92,6 +91,13 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				 <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
 			</plugin>
 		</plugins>
 	</build>

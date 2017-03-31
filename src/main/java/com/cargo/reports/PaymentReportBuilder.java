@@ -18,6 +18,7 @@ import org.springframework.web.servlet.view.document.AbstractXlsxView;
 
 import com.cargo.model.PaymentInfo;
 import com.cargo.model.Person;
+import com.cargo.service.responce.ConsignmentInfoResponse;
 
 public class PaymentReportBuilder extends AbstractXlsxView{
 
@@ -26,7 +27,8 @@ public class PaymentReportBuilder extends AbstractXlsxView{
 			HttpServletResponse response) throws Exception {
 		List<PaymentInfo> payments = (List<PaymentInfo>) data.get("payments");
 		Person person = (Person) data.get("person");
-		Double totalDue = (Double) data.get("totaldue");
+		List<ConsignmentInfoResponse> consignments = (List<ConsignmentInfoResponse>) data.get("consignments");
+		Double totalDue = getTotalDueAmount(consignments);
 		Double totalPaidAmt = getTotalPaidAmount(payments);
 		Double balance = totalDue - totalPaidAmt;
 		
@@ -101,12 +103,64 @@ public class PaymentReportBuilder extends AbstractXlsxView{
         totalPaid.createCell(8).setCellValue(balance);
         
         
+        Row consignmentHeading = sheet.createRow(sheet.getLastRowNum()+4);
+        consignmentHeading.createCell(0).setCellValue("Consignments");
+        consignmentHeading.getCell(0).setCellStyle(style);
+        
+     // create Consignments header row
+        Row consignmentHeader = sheet.createRow(sheet.getLastRowNum()+2);
+         
+        consignmentHeader.createCell(0).setCellValue("Booking Date");
+        consignmentHeader.getCell(0).setCellStyle(style);
+        
+        consignmentHeader.createCell(1).setCellValue("Consignment ID");
+        consignmentHeader.getCell(1).setCellStyle(style);
+        
+        consignmentHeader.createCell(2).setCellValue("Consignor");
+        consignmentHeader.getCell(2).setCellStyle(style);
+         
+        consignmentHeader.createCell(3).setCellValue("Consignee");
+        consignmentHeader.getCell(3).setCellStyle(style);
+        
+        consignmentHeader.createCell(4).setCellValue("From");
+        consignmentHeader.getCell(4).setCellStyle(style);
+        
+        consignmentHeader.createCell(5).setCellValue("To");
+        consignmentHeader.getCell(5).setCellStyle(style);
+        
+        consignmentHeader.createCell(6).setCellValue("Pay Type");
+        consignmentHeader.getCell(6).setCellStyle(style);
+         
+        consignmentHeader.createCell(7).setCellValue("Total Amount");
+        consignmentHeader.getCell(7).setCellStyle(style);
+        
+        
+        rowCount = sheet.getLastRowNum()+1;
+        
+        for (ConsignmentInfoResponse consignment : consignments) {
+            Row aRow = sheet.createRow(rowCount++);
+            aRow.createCell(0).setCellValue(consignment.getEntry_Date());
+            aRow.getCell(0).setCellStyle(dateColStyle);
+            aRow.createCell(1).setCellValue(consignment.getId());
+            aRow.createCell(2).setCellValue(consignment.getConsignor());
+            aRow.createCell(3).setCellValue(consignment.getConsingee());
+            aRow.createCell(4).setCellValue(consignment.getFrom());
+            aRow.createCell(5).setCellValue(consignment.getTo());
+            aRow.createCell(6).setCellValue(consignment.getPayment_Type());
+            aRow.createCell(7).setCellValue(consignment.getTotal());
+        }
+        
        
     }
 
 	private Double getTotalPaidAmount(List<PaymentInfo> paymentInfos){
 			
 		return paymentInfos.stream().mapToDouble(payment -> payment.getAmount()).sum();
+	}
+	
+	private Double getTotalDueAmount(List<ConsignmentInfoResponse> consignments) {
+
+		return consignments.stream().mapToDouble(consignmentInfoResponse -> consignmentInfoResponse.getTotal()).sum();
 	}
 	
 

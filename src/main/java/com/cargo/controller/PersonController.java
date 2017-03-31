@@ -32,7 +32,7 @@ public class PersonController {
 	
 	@RequestMapping(value = PersonRestURIConstants.ADD_PERSON, method = RequestMethod.POST)
 	public void addPerson(@RequestBody Person person){
-		personDAO.save(person);
+		personService.savePerson(person);
 	}
 	
 	@RequestMapping(value = PersonRestURIConstants.GET_ALL_PERSON, method = RequestMethod.GET)
@@ -52,7 +52,7 @@ public class PersonController {
 	@ResponseBody public List<PersonResponse> getPersonByNameAndType(@PathVariable("type") String type, @PathVariable String name) {
 		List<PersonResponse> response = new ArrayList<>();
 		
-		personDAO.findByTypeAndName(type.toUpperCase(),"%"+name+"%").stream().forEach(person-> {
+		personDAO.findByTypeAndName(type.toUpperCase(),"%"+name+"%","PERMANENT").stream().forEach(person-> {
 			PersonResponse personResponse = new PersonResponse();
 			BeanUtils.copyProperties(person, personResponse);
 			response.add(personResponse);

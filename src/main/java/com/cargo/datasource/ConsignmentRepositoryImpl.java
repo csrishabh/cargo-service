@@ -30,7 +30,7 @@ public class ConsignmentRepositoryImpl implements ConsignmentRepositoryCustom {
 	EntityManager entityManager;
 	
 	@Override
-	public ResponseEntity<List<ConsignmentInfoResponse>> getConsigments(Map<String, String> params) {
+	public List<Consignment> getConsigments(Map<String, String> params) {
 		    SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
 		    CriteriaBuilder builder = entityManager.getCriteriaBuilder();
 	        CriteriaQuery<Consignment> query = builder.createQuery(Consignment.class);
@@ -62,32 +62,14 @@ public class ConsignmentRepositoryImpl implements ConsignmentRepositoryCustom {
                 predicate = builder.and(predicate,builder.notEqual(r.get(Consignment_.isDeleted), true)); 
 				
 	        } catch (ParseException e) {
-	        	 return new ResponseEntity<List<ConsignmentInfoResponse>>(HttpStatus.BAD_REQUEST);
+	        	 return new ArrayList<Consignment>();
 			}
 	        query.where(predicate);
 	        List<Consignment> result = entityManager.createQuery(query).getResultList();
-	        List<ConsignmentInfoResponse> response = new ArrayList<>();
-	        
-	        result.stream().forEach(consignment ->{
-	        	ConsignmentInfoResponse res = new ConsignmentInfoResponse();
-	        	BeanUtils.copyProperties(consignment, res);
-	        	double total = (consignment.getWeight()*consignment.getRate()) + consignment.getS_Tax() + consignment.getOther_charge() + consignment.getCarrige_charge() ;
-	        	res.setTotal(total);
-	        	if(consignment.getDispatcher() != null){
-	        	res.setDispatcherId(consignment.getDispatcher().getId());
-	        	}
-	        	consignment.getPersons().stream().forEach(person ->{
-	        		if(person.getType().equals(ApplicationConfig.CONSIGNEE)){
-	        			res.setTo(person.getCity());
-	        		}
-	        		else if(person.getType().equals(ApplicationConfig.CONSIGNOR)){
-	        			res.setFrom(person.getCity());
-	        		}
-	        	});
-	        	response.add(res);
-	        });
-	        
-	        return new ResponseEntity<List<ConsignmentInfoResponse>>(response, HttpStatus.OK);
+	        if(result == null){
+	        	return new ArrayList<Consignment>();
+	        }
+	        return result;
 	}
 
 }

@@ -50,6 +50,8 @@ public class Person implements Serializable {
 	private String mobile;
 	@Column(name="P_TYPE")
 	private String type;
+	@Column(name="P_CATEGORY")
+	private String category = "PERMANENT"; 
 	
 	@ManyToMany(fetch = FetchType.LAZY , mappedBy = "persons")
 	
@@ -139,4 +141,12 @@ public class Person implements Serializable {
 		this.consignments = consignments;
 	}
 
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
+	
 }

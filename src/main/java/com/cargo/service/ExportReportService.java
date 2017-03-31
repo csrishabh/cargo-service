@@ -26,12 +26,13 @@ public class ExportReportService {
 	public Map<String, Object> exportPaymentReport(Map<String, String> param) {
 		
 		Person person  = personService.getPerson(Long.parseLong(param.get("id")));
-		Double totalDue = personService.getTotalDue(param).getBody();
+		List<ConsignmentInfoResponse> consignments = personService.getConsignmentByPersonId(param).getBody();
+		//Double totalDue = personService.getTotalDue(param).getBody();
 		List<PaymentInfo> payments = paymentService.getPersonPayments(param).getBody();
 		
 		Map<String, Object> fileData = new HashMap<>();
 		fileData.put("person", person);
-		fileData.put("totaldue", totalDue);
+		fileData.put("consignments", consignments);
 		fileData.put("payments", payments);
 		
 		return fileData;

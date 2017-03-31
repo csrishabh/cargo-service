@@ -37,16 +37,35 @@ public class ConsignmentService {
 
 	public ResponseEntity<List<ConsignmentInfoResponse>> getConsignmentsByDate(Map<String, String> map) {
 
-		return consignmentRepo.getConsigments(map);
+		List<ConsignmentInfoResponse> response = convertToResponse(consignmentRepo.getConsigments(map));
+
+		return new ResponseEntity<List<ConsignmentInfoResponse>>(response, HttpStatus.OK);
 	}
 
 	public void saveConsignment(Consignment consignment) {
-		consignment.setEntry_Date(new Date());
+		String payType = consignment.getPayment_Type();
 		List<Person> persons = new ArrayList<>();
-		consignment.getPersons().stream().forEach(person -> {
-			persons.add(personService.getPerson(person.getId()));
-		});
+		if (payType.equalsIgnoreCase("CASH")) {
+			consignment.getPersons().stream().forEach(person -> {
+				person.setId(0l);
+				persons.add(personService.savePerson(person));
+			});
+		} else {
+			consignment.getPersons().stream().forEach(person -> {
+				if (consignment.getPaidBy().equalsIgnoreCase(person.getType())) {
+					persons.add(personService.getPerson(person.getId()));
+				} else {
+					person.setId(0l);
+					persons.add(personService.savePerson(person));
+
+				}
+
+			});
+			consignment.setPersons(persons);
+		}
 		consignment.setPersons(persons);
+		consignment.setEntry_Date(new Date());
+
 		consignmentRepo.save(consignment);
 	}
 
@@ -118,6 +137,7 @@ public class ConsignmentService {
 			res.setTotal(total);
 			if (consignment.getDispatcher() != null) {
 				res.setDispatcherId(consignment.getDispatcher().getId());
+				res.setDriverName(consignment.getDispatcher().getDriver_Name());
 			}
 			consignment.getPersons().stream().forEach(p -> {
 				if (p.getType().equals(ApplicationConfig.CONSIGNEE)) {
