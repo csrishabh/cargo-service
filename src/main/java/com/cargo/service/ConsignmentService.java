@@ -138,6 +138,8 @@ public class ConsignmentService {
 			if (consignment.getDispatcher() != null) {
 				res.setDispatcherId(consignment.getDispatcher().getId());
 				res.setDriverName(consignment.getDispatcher().getDriver_Name());
+				res.setVia(consignment.getDispatcher().getCity());
+				res.setState(consignment.getDispatcher().getState());
 			}
 			consignment.getPersons().stream().forEach(p -> {
 				if (p.getType().equals(ApplicationConfig.CONSIGNEE)) {

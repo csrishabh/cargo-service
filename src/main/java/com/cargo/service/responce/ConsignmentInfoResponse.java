@@ -46,7 +46,26 @@ public class ConsignmentInfoResponse {
 	
 	private String consingee;
 	
+	private String via;
 	
+	private String state;
+	
+	public String getVia() {
+		return via;
+	}
+
+	public void setVia(String via) {
+		this.via = via;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
 	public String getDriverName() {
 		return driverName;
 	}

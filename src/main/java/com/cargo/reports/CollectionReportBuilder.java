@@ -107,6 +107,12 @@ public class CollectionReportBuilder extends AbstractXlsView {
 	        
 	        header.createCell(19).setCellValue("Driver Name");
 	        header.getCell(19).setCellStyle(style);
+	        
+	        header.createCell(20).setCellValue("Via");
+	        header.getCell(20).setCellStyle(style);
+	        
+	        header.createCell(21).setCellValue("State");
+	        header.getCell(21).setCellStyle(style);
 	        // create data rows
 	        int rowCount = 2;
 	        
@@ -135,6 +141,8 @@ public class CollectionReportBuilder extends AbstractXlsView {
 	            aRow.createCell(17).setCellValue(consignment.getType());
 	            aRow.createCell(18).setCellValue(consignment.getRemarks());
 	            aRow.createCell(19).setCellValue(consignment.getDriverName());
+	            aRow.createCell(20).setCellValue(consignment.getVia());
+	            aRow.createCell(21).setCellValue(consignment.getState());
 	            
 	        }
 	                   
