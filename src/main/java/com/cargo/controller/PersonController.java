@@ -19,6 +19,7 @@ import com.cargo.config.PersonRestURIConstants;
 import com.cargo.datasource.PersonRepository;
 import com.cargo.model.Person;
 import com.cargo.service.PersonService;
+import com.cargo.service.responce.ConsignmentInfoResponse;
 import com.cargo.service.responce.PersonResponse;
 
 @RestController
@@ -65,6 +66,13 @@ public class PersonController {
 	@ResponseBody public ResponseEntity<Double> getTotalDueOnPerson(@RequestParam Map<String, String> param) {
 		
 		return personService.getTotalDue(param);
+
+	}
+	
+	@RequestMapping(value = PersonRestURIConstants.GET_ALL_CONSIGNMENT_BY_PERSON, method = RequestMethod.GET)
+	@ResponseBody public ResponseEntity<List<ConsignmentInfoResponse>> getAllConsignmentByPerson(@RequestParam Map<String, String> param) {
+		
+		return personService.getConsignmentByPersonId(param);
 
 	}
 	
