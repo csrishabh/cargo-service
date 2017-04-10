@@ -64,8 +64,6 @@ public class ConsignmentService {
 			consignment.setPersons(persons);
 		}
 		consignment.setPersons(persons);
-		consignment.setEntry_Date(new Date());
-
 		consignmentRepo.save(consignment);
 	}
 
