@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.cargo.config.ExportReportRestURIConstants;
 import com.cargo.reports.CollectionReportBuilder;
 import com.cargo.reports.PaymentReportBuilder;
+import com.cargo.reports.PaymentSummeryReport;
 import com.cargo.service.ExportReportService;
 
 @RestController
@@ -39,6 +40,14 @@ public class ExportReportController {
 		response.setContentType( "application/ms-excel" );
 	    response.setHeader( "Content-disposition", "attachment; filename=myfile.xls" );
 		return new ModelAndView(new CollectionReportBuilder() , fileData);
+		
+	}
+	
+	@RequestMapping(value = ExportReportRestURIConstants.GENERATE_PAYMENT_SUMMARY_REPORT ,method = RequestMethod.GET)
+	public ModelAndView exportPaymentSummaryReport(@RequestParam Map<String, String> param , HttpServletResponse response){
+		
+		Map<String, Object> fileData = exportReportService.exportPaymentSummaryReport(param);
+		return new ModelAndView(new PaymentSummeryReport() , fileData);
 		
 	}
 
