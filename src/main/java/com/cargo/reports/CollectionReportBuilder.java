@@ -120,7 +120,7 @@ public class CollectionReportBuilder extends AbstractXlsView {
 	        dateColStyle.setDataFormat(createHelper.createDataFormat().getFormat("d/m/yy"));
 	        for (ConsignmentInfoResponse consignment : consignments) {
 	            Row aRow = sheet.createRow(rowCount++);
-	            aRow.createCell(0).setCellValue(consignment.getId());
+	            aRow.createCell(0).setCellValue(consignment.getDisplayIndex());
 	            aRow.createCell(1).setCellValue(consignment.getEntry_Date());
 	            aRow.getCell(1).setCellStyle(dateColStyle);
 	            aRow.createCell(2).setCellValue(consignment.getStatus());

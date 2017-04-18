@@ -5,6 +5,8 @@ import java.util.Date;
 public class ConsignmentInfoResponse {
 
 	private Long id;
+	
+	private String displayIndex;
 
 	private double weight;
 
@@ -50,6 +52,15 @@ public class ConsignmentInfoResponse {
 	
 	private String state;
 	
+
+	public String getDisplayIndex() {
+		return displayIndex;
+	}
+
+	public void setDisplayIndex(String displayIndex) {
+		this.displayIndex = displayIndex;
+	}
+
 	public String getVia() {
 		return via;
 	}

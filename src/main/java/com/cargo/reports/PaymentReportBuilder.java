@@ -141,7 +141,7 @@ public class PaymentReportBuilder extends AbstractXlsxView{
             Row aRow = sheet.createRow(rowCount++);
             aRow.createCell(0).setCellValue(consignment.getEntry_Date());
             aRow.getCell(0).setCellStyle(dateColStyle);
-            aRow.createCell(1).setCellValue(consignment.getId());
+            aRow.createCell(1).setCellValue(consignment.getDisplayIndex());
             aRow.createCell(2).setCellValue(consignment.getConsignor());
             aRow.createCell(3).setCellValue(consignment.getConsingee());
             aRow.createCell(4).setCellValue(consignment.getFrom());

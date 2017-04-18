@@ -46,6 +46,9 @@ public class Consignment implements Serializable {
 	@SequenceGenerator(name="my_con_seq_gen", sequenceName="ENTITY_SEQ")
 	private long id = 0L;
 	
+	@Column(name="display_index")
+	private String displayIndex;
+	
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "PERSON_CONSIGNMENT", joinColumns = {
 			@JoinColumn(name = "CONSIGNMENT_ID", nullable = false) },
@@ -148,7 +151,13 @@ public class Consignment implements Serializable {
 	public void setId(long id) {
 		this.id = id;
 	}
-
+	
+	public String getDisplayIndex() {
+		return displayIndex;
+	}
+	public void setDisplayIndex(String displayIndex) {
+		this.displayIndex = displayIndex;
+	}
 	public double getWeight() {
 		return weight;
 	}
