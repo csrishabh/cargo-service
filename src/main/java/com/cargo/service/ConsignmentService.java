@@ -45,7 +45,13 @@ public class ConsignmentService {
 	public void saveConsignment(Consignment consignment) {
 		String payType = consignment.getPayment_Type();
 		List<Person> persons = new ArrayList<>();
-		if (payType.equalsIgnoreCase("CASH")) {
+		if (!payType.equalsIgnoreCase("CREDIT")) {
+			if(payType.equalsIgnoreCase("CASH")){
+				consignment.setPaidBy("CONSIGNOR");
+			}
+			else if(payType.equalsIgnoreCase("TO PAY")){
+				consignment.setPaidBy("CONSIGNEE");
+			}
 			consignment.getPersons().stream().forEach(person -> {
 				person.setId(0l);
 				persons.add(personService.savePerson(person));
